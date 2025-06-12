@@ -127,23 +127,35 @@ export default function Popup({ category, onClose, displayGalleryType }: PopupPr
                   ))}
                 </div>
               ) : isMusicCategory ? (
-                <div className="bg-[#fff8e1] rounded-lg mb-3 flex justify-center items-center mx-auto w-[90%] p-2 border-2 border-[#AA8866] shadow-inner">
-                  <iframe
-                    style={{ borderRadius: "12px" }}
-                    src={`https://open.spotify.com/embed/track/${spotifyTrackId}?utm_source=generator&theme=0`}
-                    width="100%"
-                    height="152"
-                    allowFullScreen={false}
-                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                    loading="lazy"
-                    title="Spotify Embed Player"
-                  ></iframe>
-                </div>
+  <div className="bg-[#fff8e1] rounded-lg mb-3 flex flex-col justify-center items-center mx-auto w-[90%] p-2 border-2 border-[#AA8866] shadow-inner">
+    <iframe
+      style={{ borderRadius: "12px" }}
+      src={`https://open.spotify.com/embed/track/${spotifyTrackId}?utm_source=generator&theme=0`}
+      width="100%"
+      height="152"
+      allowFullScreen={false}
+      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+      loading="lazy"
+      title="Spotify Embed Player"
+    ></iframe>
+
+    {/* Texto descritivo abaixo do player */}
+    {category.texto && (
+      <div className="bg-[#FFF8DC] mt-3 p-2.5 rounded shadow-sm border border-[#A0522D] text-sm md:text-base text-[#5C3317] leading-snug w-full"
+        style={{
+          fontFamily: "var(--font-pixel), var(--font-pixel-alt), monospace",
+          textShadow: "1px 1px 0px rgba(0,0,0,0.05)",
+        }}
+      >
+        {category.texto}
+      </div>
+    )}
+  </div>
               ) : isAnyObjektsGalleryView ? (
                 <div className="bg-[#fff8e1] rounded-lg mb-3 flex flex-col flex-grow mx-auto w-full p-2 md:p-4 border-2 border-[#AA8866] shadow-inner overflow-y-auto max-h-[60vh] md:max-h-[50vh]">
                   {showSohyunSection && (
                     <div>
-                      <h3 className="text-lg text-pink-600 mb-2 font-pixel text-center">SoHyun</h3>
+                      <h3 className="text-lg text-pink-600 mb-2 font-pixel text-center">Sohyun</h3>
                       <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 md:gap-4">
                         {sohyunObjekts.map((src, index_sohyun) => (
                           <div
@@ -163,7 +175,7 @@ export default function Popup({ category, onClose, displayGalleryType }: PopupPr
                   )}
                   {showXinyuSection && (
                     <div className={showSohyunSection ? "mt-4 md:mt-6" : ""}>
-                      <h3 className="text-lg text-blue-600 mb-2 font-pixel text-center">XinYu</h3>
+                      <h3 className="text-lg text-blue-600 mb-2 font-pixel text-center">Xinyu</h3>
                       <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 md:gap-4">
                         {xinyuObjekts.map((src, index_xinyu) => (
                           <div
@@ -183,7 +195,7 @@ export default function Popup({ category, onClose, displayGalleryType }: PopupPr
                   )}
                   {showHayeonSection && (
                     <div className={showSohyunSection || showXinyuSection ? "mt-4 md:mt-6" : ""}>
-                      <h3 className="text-lg text-red-500 mb-2 font-pixel text-center">HaYeon</h3>
+                      <h3 className="text-lg text-red-500 mb-2 font-pixel text-center">Hayeon</h3>
                       <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 md:gap-4">
                         {hayeonObjekts.map((src, index_hayeon) => (
                           <div
@@ -203,25 +215,36 @@ export default function Popup({ category, onClose, displayGalleryType }: PopupPr
                   )}
                 </div>
               ) : isCharactersCategory ? (
-                <div className="bg-[#fff8e1] rounded-md mb-2 mx-auto w-[95%] p-2 border-2 border-[#AA8866] shadow-inner">
-                  <div className="grid grid-cols-3 gap-2">
-                    {category.galleryImages?.map((image, index) => (
-                      <div key={`char-${index}`} className="flex flex-col items-center">
-                        <div className="relative w-full aspect-square rounded-sm overflow-hidden shadow-sm border border-gray-200">
-                          <Image
-                            src={image.src || "/placeholder.svg"}
-                            alt={image.name}
-                            fill
-                            className="object-contain pixelated p-0.5"
-                          />
-                        </div>
-                        <p className="text-[10px] leading-tight font-pixel text-center text-gray-700 mt-0.5">
-                          {image.name}
-                        </p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
+  <div className="bg-[#fff8e1] rounded-md mb-2 mx-auto w-[95%] p-2 border-2 border-[#AA8866] shadow-inner">
+    <div className="grid grid-cols-3 gap-2">
+      {category.galleryImages?.map((image, index) => (
+        <div key={`char-${index}`} className="flex flex-col items-center">
+          <div className="relative w-full aspect-square rounded-sm overflow-hidden shadow-sm border border-gray-200">
+            <Image
+              src={image.src || "/placeholder.svg"}
+              alt={image.name}
+              fill
+              className="object-contain pixelated p-0.5"
+            />
+          </div>
+          <p className="text-[10px] leading-tight font-pixel text-center text-gray-700 mt-0.5">
+            {image.name}
+          </p>
+        </div>
+      ))}
+    </div>
+    {/* Adiciona a descrição abaixo das imagens */}
+    {category.texto && (
+      <div className="bg-[#FFF8DC] mt-3 p-2.5 rounded shadow-sm border border-[#A0522D] text-sm md:text-base text-[#5C3317] leading-snug"
+        style={{
+          fontFamily: "var(--font-pixel), var(--font-pixel-alt), monospace",
+          textShadow: "1px 1px 0px rgba(0,0,0,0.05)",
+        }}
+      >
+        {category.texto}
+      </div>
+    )}
+  </div>
               ) : (
                 <div className="bg-[#fff8e1] rounded-lg mb-3 flex justify-center items-center mx-auto w-[85%] max-h-[150px] md:max-h-[180px]">
                   <div className="relative w-full aspect-square max-h-[130px] md:max-h-[150px] my-2">

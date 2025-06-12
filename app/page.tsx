@@ -14,6 +14,7 @@ import CharacterHUD from "@/components/character-hud"
 import FinalDialog from "@/components/final-dialog"
 import FallingPetals from "@/components/falling-petals"
 import FinalObjektsChoiceDialog from "@/components/final-objekts-choice-dialog"
+import IntroDialog from "@/components/intro-dialog"
 import { Menu } from "lucide-react"
 
 interface Position {
@@ -39,7 +40,6 @@ export default function Home() {
   const [showFinalScene, setShowFinalScene] = useState(false)
   const [charactersHidden, setCharactersHidden] = useState(false)
 
-  // Estados para a sequência final simplificados
   const [showFinalObjektsChoice, setShowFinalObjektsChoice] = useState(false)
   const [showFinalDialog, setShowFinalDialog] = useState(false)
   const [isExploringMapMode, setIsExploringMapMode] = useState(false)
@@ -47,6 +47,8 @@ export default function Home() {
   const [currentMap, setCurrentMap] = useState<string>("/images/mapa.png")
   const [isTransitioningMap, setIsTransitioningMap] = useState(false)
   const bouquetDeliveryInProgressRef = useRef(false)
+
+  const [showIntroDialog, setShowIntroDialog] = useState(true)
 
   useEffect(() => {
     if (!mapRef.current) return
@@ -142,7 +144,7 @@ export default function Home() {
 
   const handleFinalObjektsChoiceComplete = () => {
     setShowFinalObjektsChoice(false)
-    setShowFinalDialog(true) 
+    setShowFinalDialog(true)
   }
 
   const handleExploreMap = () => {
@@ -172,72 +174,78 @@ export default function Home() {
   }
 
   return (
-    <main className="min-h-screen bg-[#331800] text-white overflow-hidden relative">
-      <div className="absolute inset-0 z-0">
-        <AnimatePresence initial={false} mode="wait">
-          <motion.div
-            key={currentMap}
-            variants={mapVariants}
-            initial="hidden"
-            animate="visible"
-            exit="hidden"
-            className="absolute inset-0"
-          >
-            <Image
-              src={currentMap || "/placeholder.svg"}
-              alt="Map Background"
-              fill
-              className="object-cover pixelated"
-              priority
-            />
-          </motion.div>
-        </AnimatePresence>
-      </div>
-      <FallingPetals isActive={showFinalScene} />
-      <div className="relative w-full z-10 px-0 py-8">
-        <AnimatedTitle />
-        <div className="mt-8 relative" ref={mapRef}>
-          {!charactersHidden && (
-            <>
-              <Character chestPositions={chestPositions} isHoldingBouquet={aizeHoldingBouquet} />
-              <SecondCharacter
-                targetCharacterPosition={aizeCurrentPosition}
-                heartPosition={heartPosition}
-                allChestsOpened={allChestsOpened}
-                onReachTarget={handleSecondCharacterReachTarget}
-                shouldMoveToAize={heartClicked && heartDialogClosed}
-                isVisible={secondCharacterVisible}
+    <>
+      <main className="min-h-screen bg-[#331800] text-white overflow-hidden relative">
+        <div className="absolute inset-0 z-0">
+          <AnimatePresence initial={false} mode="wait">
+            <motion.div
+              key={currentMap}
+              variants={mapVariants}
+              initial="hidden"
+              animate="visible"
+              exit="hidden"
+              className="absolute inset-0"
+            >
+              <Image
+                src={currentMap || "/placeholder.svg"}
+                alt="Map Background"
+                fill
+                className="object-cover pixelated"
+                priority
               />
-            </>
-          )}
-          <ChestMap
-            categories={categorias}
-            onChestClick={handleChestClick}
-            openChest={openChestName}
-            showFinalScene={showFinalScene}
-          />
+            </motion.div>
+          </AnimatePresence>
         </div>
-        <AnimatePresence>
-          {selectedCategory && <Popup category={selectedCategory} onClose={handleClosePopup} />}
-        </AnimatePresence>
-      </div>
-      {!charactersHidden && <CharacterHUD />}
-      <FinalObjektsChoiceDialog isVisible={showFinalObjektsChoice} onComplete={handleFinalObjektsChoiceComplete} />
-      <FinalDialog isVisible={showFinalDialog} onExploreMap={handleExploreMap} />
-      {isExploringMapMode && (
-        <motion.button
-          onClick={handleReturnToFinalDialog}
-          className="fixed bottom-6 right-6 z-50 bg-gradient-to-br from-purple-500 to-indigo-600 text-white font-pixel p-3 rounded-full shadow-xl hover:from-purple-600 hover:to-indigo-700 transition-all"
-          initial={{ scale: 0, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          exit={{ scale: 0, opacity: 0 }}
-          whileHover={{ rotate: [0, 10, -10, 0], scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
-        >
-          <Menu size={28} />
-          <span className="sr-only">Voltar ao Menu Final</span>
-        </motion.button>
+        <FallingPetals isActive={showFinalScene} />
+        <div className="relative w-full z-10 px-0 py-8">
+          <AnimatedTitle />
+          <div className="mt-8 relative" ref={mapRef}>
+            {!charactersHidden && (
+              <>
+                <Character chestPositions={chestPositions} isHoldingBouquet={aizeHoldingBouquet} />
+                <SecondCharacter
+                  targetCharacterPosition={aizeCurrentPosition}
+                  heartPosition={heartPosition}
+                  allChestsOpened={allChestsOpened}
+                  onReachTarget={handleSecondCharacterReachTarget}
+                  shouldMoveToAize={heartClicked && heartDialogClosed}
+                  isVisible={secondCharacterVisible}
+                />
+              </>
+            )}
+            <ChestMap
+              categories={categorias}
+              onChestClick={handleChestClick}
+              openChest={openChestName}
+              showFinalScene={showFinalScene}
+            />
+          </div>
+          <AnimatePresence>
+            {selectedCategory && <Popup category={selectedCategory} onClose={handleClosePopup} />}
+          </AnimatePresence>
+        </div>
+        {!charactersHidden && <CharacterHUD />}
+        <FinalObjektsChoiceDialog isVisible={showFinalObjektsChoice} onComplete={handleFinalObjektsChoiceComplete} />
+        <FinalDialog isVisible={showFinalDialog} onExploreMap={handleExploreMap} />
+        {isExploringMapMode && (
+          <motion.button
+            onClick={handleReturnToFinalDialog}
+            className="fixed bottom-6 right-6 z-50 bg-gradient-to-br from-purple-500 to-indigo-600 text-white font-pixel p-3 rounded-full shadow-xl hover:from-purple-600 hover:to-indigo-700 transition-all"
+            initial={{ scale: 0, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0, opacity: 0 }}
+            whileHover={{ rotate: [0, 10, -10, 0], scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+          >
+            <Menu size={28} />
+            <span className="sr-only">Voltar ao Menu Final</span>
+          </motion.button>
+        )}
+      </main>
+
+      {showIntroDialog && (
+        <IntroDialog isVisible={true} onContinue={() => setShowIntroDialog(false)} />
       )}
-    </main>
+    </>
   )
 }

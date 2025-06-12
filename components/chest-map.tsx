@@ -24,8 +24,8 @@ interface Position {
 
 // Posições predefinidas para os baús no mapa
 const allPossibleChestPositions: Position[] = [
-  { x: 5, y: 20 }, { x: 30, y: 15 }, { x: 45, y: 25 }, { x: 25, y: 35 },
-  { x: 60, y: 15 }, { x: 75, y: 25 }, { x: 50, y: 40 }, { x: 35, y: 55 },
+  { x: 49, y: 60 }, { x: 41, y: 45 }, { x: 33, y: 70 }, { x: 72, y: 70 },
+  { x: 60, y: 15 }, { x: 60, y: 70 }, { x: 58, y: 45 }, { x: 35, y: 55 },
   { x: 65, y: 45 }, { x: 95, y: 55 }, { x: 10, y: 70 }, { x: 40, y: 75 },
   { x: 60, y: 70 }, { x: 85, y: 80 }, { x: 50, y: 60 },
   // A 16ª posição era a original do coração, vamos reservá-la

@@ -51,6 +51,6 @@ export const categorias: Categoria[] = [
   {
     nome: "❤️", 
     imagem: "/images/voce.png",
-    texto: "Fiz essa aplicaçãozinha aqui pra mencionar cada coisa que eu vejo, ouço ou sinto e que me faz pensar em você.\n\nNa minha cabeça eu não poderia deixar esse dia passar em branco assim e queria fazer algo especial porque é o que você é pra mim.\n\nForam bons e longos dias fazendo tudo isso e por mais que tenha demorado não expressa nem 1% de tudo que sinto e gostaria de fazer pra ti.\n\nE ainda não acabou, tem muito mais pela frente, quando fechar essa caixinha.",
+    texto: "Fiz essa aplicaçãozinha aqui pra mencionar cada coisa que eu vejo, ouço ou sinto e que me faz pensar em você.\n\nNa minha cabeça eu não poderia deixar esse dia passar em branco assim e queria fazer algo especial porque é o que você é pra mim.\n\nForam bons e longos dias fazendo tudo isso e por mais que tenha demorado não expressa nem 1% de tudo que sinto e gostaria de fazer por ti.\n\nE ainda não acabou, tem muito mais pela frente, quando fechar essa caixinha.\n\n E é isso, ti amo.",
   },
 ]

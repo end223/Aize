@@ -24,9 +24,9 @@ const pixelFontAlt = Press_Start_2P({
 })
 
 export const metadata: Metadata = {
-  title: "Mapa do Meu Olhar Sobre Você",
-  description: "Um mapa interativo 8-bit com baús que revelam como eu te vejo",
-    generator: 'v0.dev'
+  title: "by Zhou",
+  description: "Aize",
+    generator: 'Zhou'
 }
 
 export default function RootLayout({
